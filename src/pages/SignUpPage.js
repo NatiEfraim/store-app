@@ -20,6 +20,8 @@ const SignUpPage = () => {
     setError(null);
     try {
       const response = await signup(formData);
+      console.log("msg from SignUpPage: ",response);
+      
       alert("Signup Successful");
       navigate("/login"); // Redirect to login page after signup
     } catch (err) {
@@ -28,8 +30,8 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="container mx-auto max-w-md p-4 mt-10 bg-white shadow-lg rounded-lg">
-      <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
+    <div className="container max-w-md p-4 mx-auto mt-10 bg-white rounded-lg shadow-lg">
+      <h2 className="mb-4 text-2xl font-bold">Sign Up</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -58,12 +60,12 @@ const SignUpPage = () => {
           required
           className="w-full p-2 mb-4 border border-gray-300 rounded"
         />
-        <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">
+        <button type="submit" className="w-full p-2 text-white bg-blue-500 rounded">
           Sign Up
         </button>
       </form>
-      {error && <p className="text-red-500 mt-2">{error}</p>}
-      <p className="text-center mt-4">
+      {error && <p className="mt-2 text-red-500">{error}</p>}
+      <p className="mt-4 text-center">
         Already have an account?{" "}
         <a href="/login" className="text-blue-500 hover:underline">
           Login
