@@ -10,10 +10,10 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await login({ email, password });
-    //   console.log();
+      const {token} = await login({ email, password });
+      // console.log("msg from loginpage: ",token);
       
-      localStorage.setItem("token", response.data.token); // Store token
+      localStorage.setItem("token", token); // Store token
       navigate("/"); // Redirect to home page
     } catch (err) {
       console.error(err);
@@ -31,7 +31,7 @@ const LoginPage = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="border p-2 mb-4"
+          className="p-2 mb-4 border"
         />
         <input
           type="password"
@@ -39,9 +39,9 @@ const LoginPage = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="border p-2 mb-4"
+          className="p-2 mb-4 border"
         />
-        <button type="submit" className="bg-blue-500 text-white p-2">
+        <button type="submit" className="p-2 text-white bg-blue-500">
           Login
         </button>
       </form>
