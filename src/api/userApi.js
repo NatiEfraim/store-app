@@ -46,7 +46,7 @@ export const signup = async (data) => {
  */
 export const getUsers = async () => {
   try {
-    const response = await axiosInstance.get(`${API_URL}/usersList`);
+    const response = await axiosInstance.get(`/usersList`);
     return response.data;
   } catch (error) {
     console.error("Error in getUsers:", error.response?.data || error.message);
