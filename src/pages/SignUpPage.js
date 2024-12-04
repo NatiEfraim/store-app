@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { signup } from "../api/userApi";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignUpPage = () => {
   const [formData, setFormData] = useState({
@@ -8,7 +10,6 @@ const SignUpPage = () => {
     email: "",
     password: "",
   });
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -17,60 +18,71 @@ const SignUpPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
     try {
       const response = await signup(formData);
-      console.log("msg from SignUpPage: ",response);
+      console.log(response);
       
-      alert("Signup Successful");
-      navigate("/login"); // Redirect to login page after signup
-    } catch (err) {
-      setError(err.response?.data?.error || "Something went wrong");
+      toast.success("Account created successfully!", { position: "top-right" });
+      setTimeout(() => {
+        navigate("/login"); // Redirect to login after a short delay
+      }, 2000);
+    } catch (error) {
+      toast.error("Sign up failed: " + error.response?.data?.msg || error.message, {
+        position: "top-right",
+      });
     }
   };
 
   return (
-    <div className="container max-w-md p-4 mx-auto mt-10 bg-white rounded-lg shadow-lg">
-      <h2 className="mb-4 text-2xl font-bold">Sign Up</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-          className="w-full p-2 mb-4 border border-gray-300 rounded"
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-          className="w-full p-2 mb-4 border border-gray-300 rounded"
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-          className="w-full p-2 mb-4 border border-gray-300 rounded"
-        />
-        <button type="submit" className="w-full p-2 text-white bg-blue-500 rounded">
-          Sign Up
-        </button>
-      </form>
-      {error && <p className="mt-2 text-red-500">{error}</p>}
-      <p className="mt-4 text-center">
-        Already have an account?{" "}
-        <a href="/login" className="text-blue-500 hover:underline">
-          Login
-        </a>
-      </p>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="p-6 bg-white rounded-lg shadow-lg w-96">
+        <h2 className="mb-6 text-2xl font-bold text-center text-gray-700">Sign Up</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block mb-1 text-gray-600">Name</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Enter your name"
+              required
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label className="block mb-1 text-gray-600">Email</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Enter your email"
+              required
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label className="block mb-1 text-gray-600">Password</label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Enter your password"
+              required
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
+          >
+            Sign Up
+          </button>
+        </form>
+        <ToastContainer />
+      </div>
     </div>
   );
 };
