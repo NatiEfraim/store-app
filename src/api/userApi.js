@@ -40,13 +40,29 @@ export const signup = async (data) => {
   }
 };
 
+
+/**
+ * Fetch authenticated user information
+ * @returns {Object} - User information or error
+ */
+export const getUserInfo = async () => {
+  try {
+    const response = await axiosInstance.get("/userInfo");
+    return response.data;
+  } catch (error) {
+    console.error("Error in getUserInfo:", error.response?.data || error.message);
+    throw error; // Re-throw to be handled by the calling function
+  }
+};
+
+
 /**
  * Fetch list of users
  * @returns {Array} - List of users or error
  */
 export const getUsers = async () => {
   try {
-    const response = await axiosInstance.get(`/usersList`);
+    const response = await axiosInstance.get(`/index`);
     return response.data;
   } catch (error) {
     console.error("Error in getUsers:", error.response?.data || error.message);
