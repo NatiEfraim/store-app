@@ -14,10 +14,10 @@ const LoginPage = () => {
     try {
       const response = await login({ email, password });
       
-      toast.success(response.msg, { position: "top-right" }); // Show success message
-      localStorage.setItem("token", response.token); // Store token
+      toast.success(response.msg, { position: "top-right" }); 
+      localStorage.setItem("token", response.token);
       setTimeout(() => {
-        navigate("/"); // Redirect to home after a short delay
+        window.location.href="./";
       }, 2000);
     } catch (error) {
       toast.error("Login Failed: " + error.response?.data?.msg || error.message, {

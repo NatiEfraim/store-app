@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { signup } from "../api/userApi";
-import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -10,7 +9,6 @@ const SignUpPage = () => {
     email: "",
     password: "",
   });
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,8 +21,8 @@ const SignUpPage = () => {
       console.log(response);
       
       toast.success("Account created successfully!", { position: "top-right" });
+      window.location.href="./login"
       setTimeout(() => {
-        navigate("/login"); // Redirect to login after a short delay
       }, 2000);
     } catch (error) {
       toast.error("Sign up failed: " + error.response?.data?.msg || error.message, {
