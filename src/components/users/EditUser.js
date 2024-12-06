@@ -107,6 +107,12 @@ const EditUser = () => {
           {loading ? "Updating..." : "Update User"}
         </button>
       </form>
+      <button
+        onClick={() => navigate("/users")}
+        className="mt-4 px-4 py-2 text-white bg-gray-500 rounded"
+      >
+        Back to User List
+      </button>
       <ToastContainer />
     </div>
   );

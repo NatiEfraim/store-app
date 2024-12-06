@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import UsersPage from "./pages/UsersPage";
 import AddUser from "./components/users/AddUser";
 import EditUser from "./components/users/EditUser";
+import UserDetails from "./components/users/UserDetails";
 
 // Function to check if a user is authenticated
 const isAuthenticated = () => {
@@ -25,6 +26,9 @@ function App() {
         <Route path="/users" element={isAuthenticated() ? <UsersPage /> : <Navigate to="/login" />} />
         <Route path="/users/add" element={isAuthenticated() ? <AddUser /> : <Navigate to="/login" />} />
         <Route path="/users/edit/:id" element={isAuthenticated() ? <EditUser /> : <Navigate to="/login" />} />
+        <Route path="/users/details/:id" element={isAuthenticated() ? <UserDetails /> : <Navigate to="/login" />} />
+        <Route path="*" element={<Navigate to="/login" />} />
+
       </Routes>
     </Router>
   );

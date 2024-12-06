@@ -44,7 +44,7 @@ const AddUser = () => {
       <h2 className="mb-4 text-2xl font-bold">Add New User</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block mb-1">Name</label>
+          <label className="block mb-1 font-semibold">Name</label>
           <input
             type="text"
             name="name"
@@ -55,7 +55,7 @@ const AddUser = () => {
           />
         </div>
         <div>
-          <label className="block mb-1">Email</label>
+          <label className="block mb-1 font-semibold">Email</label>
           <input
             type="email"
             name="email"
@@ -66,7 +66,7 @@ const AddUser = () => {
           />
         </div>
         <div>
-          <label className="block mb-1">Password</label>
+          <label className="block mb-1 font-semibold">Password</label>
           <input
             type="password"
             name="password"
@@ -77,7 +77,7 @@ const AddUser = () => {
           />
         </div>
         <div>
-          <label className="block mb-1">Role</label>
+          <label className="block mb-1 font-semibold">Role</label>
           <select
             name="role"
             value={formData.role}
@@ -98,6 +98,12 @@ const AddUser = () => {
           {loading ? "Adding..." : "Add User"}
         </button>
       </form>
+      <button
+        onClick={() => navigate("/users")}
+        className="mt-4 px-4 py-2 text-white bg-gray-500 rounded"
+      >
+        Back to User List
+      </button>
       <ToastContainer />
     </div>
   );
