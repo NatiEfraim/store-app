@@ -86,21 +86,6 @@ export const addUser = async (user) => {
   }
 };
 
-/**
- * Update user by ID
- * @param {String} id - User ID
- * @param {Object} user - Updated user details
- * @returns {Object} - Response data or error
- */
-export const updateUser = async (id, user) => {
-  try {
-    const response = await axiosInstance.put(`${API_URL}/${id}`, user);
-    return response.data;
-  } catch (error) {
-    console.log("Error in updateUser:", error.response?.data || error.message);
-    throw error;
-  }
-};
 
 /**
  * Delete user by ID
@@ -113,6 +98,41 @@ export const deleteUser = async (id) => {
     return response.data;
   } catch (error) {
     console.log("Error in deleteUser:", error.response?.data || error.message);
+    throw error;
+  }
+
+};
+
+
+/**
+ * Fetch user by ID
+ * @param {String} id - User ID
+ * @returns {Object} - User data
+ */
+export const getUserById = async (id) => {
+  try {
+    const response = await axiosInstance.get(`/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error in getUserById:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+/**
+ * Update user by ID
+ * @param {String} id - User ID
+ * @param {Object} user - Updated user data
+ * @returns {Object} - Updated user response
+ */
+
+
+export const updateUser = async (id, user) => {
+  try {
+    const response = await axiosInstance.put(`/${id}`, user);
+    return response.data;
+  } catch (error) {
+    console.error("Error in updateUser:", error.response?.data || error.message);
     throw error;
   }
 };
