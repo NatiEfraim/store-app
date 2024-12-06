@@ -1,20 +1,20 @@
-
 import React, { useState, useEffect } from "react";
 import { getUserById, updateUser } from "../../api/userApi";
 import { useParams, useNavigate } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
-
 import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EditUser = () => {
   const { id } = useParams(); // Get user ID from URL params
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // To redirect back to user list
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     role: "user",
   });
+
+  const [loading, setLoading] = useState(false); // Prevent duplicate submissions
 
   // Fetch user data by ID
   useEffect(() => {
@@ -35,20 +35,27 @@ const EditUser = () => {
     }
   };
 
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (loading) return; // Prevent duplicate form submissions
+    setLoading(true);
+
     try {
       await updateUser(id, formData);
       toast.success("User updated successfully!", { position: "top-right" });
-      navigate("/users"); // Redirect to the user list
+      navigate("/users"); // Redirect to the user list page
     } catch (error) {
       console.error("Error updating user:", error.response?.data || error.message);
-      toast.error("Failed to update user", { position: "top-right" });
+      toast.error(`Failed to update user: ${error.response?.data?.msg || error.message}`, {
+        position: "top-right",
+      });
+    } finally {
+      setLoading(false); // Re-enable the form
     }
   };
 
@@ -92,8 +99,12 @@ const EditUser = () => {
             <option value="superadmin">Super Admin</option>
           </select>
         </div>
-        <button type="submit" className="px-4 py-2 text-white bg-blue-500 rounded">
-          Update User
+        <button
+          type="submit"
+          className={`px-4 py-2 text-white rounded ${loading ? "bg-gray-500" : "bg-blue-500"}`}
+          disabled={loading}
+        >
+          {loading ? "Updating..." : "Update User"}
         </button>
       </form>
       <ToastContainer />

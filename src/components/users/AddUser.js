@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import { addUser } from "../../api/userApi";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
-const AddUser = ({ onUserAdded }) => {
-
-
+const AddUser = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     role: "user",
   });
-  
+
   const [loading, setLoading] = useState(false); // Prevent duplicate submissions
+  const navigate = useNavigate(); // To redirect back to user list
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -28,15 +28,12 @@ const AddUser = ({ onUserAdded }) => {
     try {
       await addUser(formData);
       toast.success("User added successfully!", { position: "top-right" });
-      setFormData({ name: "", email: "", password: "", role: "user" });
-      onUserAdded(); // Callback to refresh the user list
-
+      navigate("/users"); // Redirect to the user list page
     } catch (error) {
-      console.log("Error adding user:",error.message);
-      // ("Error adding user:", error.response?.data || error.message);
-      // toast.error(`Failed to add user: ${error.response?.data?.msg || error.message}`, {
-      //   position: "top-right",
-      // });
+      console.error("Error adding user:", error.response?.data || error.message);
+      toast.error(`Failed to add user: ${error.response?.data?.msg || error.message}`, {
+        position: "top-right",
+      });
     } finally {
       setLoading(false); // Re-enable the form
     }
@@ -55,7 +52,6 @@ const AddUser = ({ onUserAdded }) => {
             onChange={handleChange}
             required
             className="w-full p-2 border border-gray-300 rounded"
-            disabled={loading} // Disable input while submitting
           />
         </div>
         <div>
@@ -67,7 +63,6 @@ const AddUser = ({ onUserAdded }) => {
             onChange={handleChange}
             required
             className="w-full p-2 border border-gray-300 rounded"
-            disabled={loading} // Disable input while submitting
           />
         </div>
         <div>
@@ -79,7 +74,6 @@ const AddUser = ({ onUserAdded }) => {
             onChange={handleChange}
             required
             className="w-full p-2 border border-gray-300 rounded"
-            disabled={loading} // Disable input while submitting
           />
         </div>
         <div>
@@ -90,7 +84,6 @@ const AddUser = ({ onUserAdded }) => {
             onChange={handleChange}
             required
             className="w-full p-2 border border-gray-300 rounded"
-            disabled={loading} // Disable input while submitting
           >
             <option value="user">User</option>
             <option value="admin">Admin</option>
@@ -99,10 +92,8 @@ const AddUser = ({ onUserAdded }) => {
         </div>
         <button
           type="submit"
-          className={`px-4 py-2 text-white bg-blue-500 rounded ${
-            loading ? "opacity-50 cursor-not-allowed" : ""
-          }`}
-          disabled={loading} // Disable button while submitting
+          className={`px-4 py-2 text-white rounded ${loading ? "bg-gray-500" : "bg-blue-500"}`}
+          disabled={loading}
         >
           {loading ? "Adding..." : "Add User"}
         </button>
