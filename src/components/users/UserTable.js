@@ -71,7 +71,7 @@ const UserTable = () => {
               <td className="px-4 py-2 border border-gray-300">{user.email}</td>
               <td className="px-4 py-2 border border-gray-300">{user.role}</td>
               <td className="px-4 py-2 border border-gray-300">
-                {authUser.role === "admin" && (
+                {(authUser.role === "admin" || authUser.role === "superadmin") && (
                   <>
                     <button
                       className="px-2 py-1 mr-2 text-white bg-red-500 rounded"
@@ -92,7 +92,7 @@ const UserTable = () => {
           ))}
         </tbody>
       </table>
-      {authUser.role === "admin" && (
+      {(authUser.role === "admin" || authUser.role === "superadmin")  && (
         <button
           className="px-4 py-2 mt-4 text-white bg-green-500 rounded"
           onClick={() => navigate("/users/add")}
