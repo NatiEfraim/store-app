@@ -107,15 +107,25 @@ const UserTable = () => {
         </tbody>
       </table>
 
-      {/* Add New User button visible to Admin and Superadmin */}
-      {(authUser.role === "admin" || authUser.role === "superadmin") && (
+      <div className="flex justify-between mt-4">
+        {/* Add New User button visible to Admin and Superadmin */}
+        {(authUser.role === "admin" || authUser.role === "superadmin") && (
+          <button
+            className="px-4 py-2 text-white bg-green-500 rounded"
+            onClick={() => navigate("/users/add")}
+          >
+            Add New User
+          </button>
+        )}
+
+        {/* Back to Dashboard button */}
         <button
-          className="px-4 py-2 mt-4 text-white bg-green-500 rounded"
-          onClick={() => navigate("/users/add")}
+          className="px-4 py-2 text-white bg-gray-500 rounded"
+          onClick={() => navigate("/")}
         >
-          Add New User
+          Back to Dashboard
         </button>
-      )}
+      </div>
     </div>
   );
 };
