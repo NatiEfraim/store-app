@@ -1,22 +1,17 @@
-// src/api/drinkApi.js
-
 import axios from "axios";
 
 const API_URL = "http://localhost:3003/drinks";
-
-// Create an axios instance with withCredentials: true
 const axiosInstance = axios.create({
   baseURL: API_URL,
   withCredentials: true,
 });
 
 /**
- * Fetch list of drinks
- * @returns {Array} - List of drinks or error
+ * Fetch all drinks
  */
 export const getDrinks = async () => {
   try {
-    const response = await axiosInstance.get(`/`);
+    const response = await axiosInstance.get("/index");
     return response.data;
   } catch (error) {
     console.error("Error in getDrinks:", error.response?.data || error.message);
@@ -25,13 +20,24 @@ export const getDrinks = async () => {
 };
 
 /**
+ * Fetch drink by ID
+ */
+export const getDrinkById = async (id) => {
+  try {
+    const response = await axiosInstance.get(`/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error in getDrinkById:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+/**
  * Add a new drink
- * @param {Object} drink - New drink details
- * @returns {Object} - Response data or error
  */
 export const addDrink = async (drink) => {
   try {
-    const response = await axiosInstance.post(`/`, drink);
+    const response = await axiosInstance.post("/", drink);
     return response.data;
   } catch (error) {
     console.error("Error in addDrink:", error.response?.data || error.message);
@@ -40,10 +46,7 @@ export const addDrink = async (drink) => {
 };
 
 /**
- * Update drink by ID
- * @param {String} id - Drink ID
- * @param {Object} drink - Updated drink details
- * @returns {Object} - Response data or error
+ * Update an existing drink
  */
 export const updateDrink = async (id, drink) => {
   try {
@@ -56,9 +59,7 @@ export const updateDrink = async (id, drink) => {
 };
 
 /**
- * Delete drink by ID
- * @param {String} id - Drink ID
- * @returns {Object} - Response data or error
+ * Delete a drink
  */
 export const deleteDrink = async (id) => {
   try {
@@ -66,21 +67,6 @@ export const deleteDrink = async (id) => {
     return response.data;
   } catch (error) {
     console.error("Error in deleteDrink:", error.response?.data || error.message);
-    throw error;
-  }
-};
-
-/**
- * Fetch drinks by user ID
- * @param {String} userId - User ID
- * @returns {Array} - List of drinks for the user or error
- */
-export const getDrinksByUser = async (userId) => {
-  try {
-    const response = await axiosInstance.get(`/user-drink/${userId}`);
-    return response.data;
-  } catch (error) {
-    console.error("Error in getDrinksByUser:", error.response?.data || error.message);
     throw error;
   }
 };
