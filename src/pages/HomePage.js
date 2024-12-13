@@ -14,7 +14,7 @@ const HomePage = () => {
       <h1 className="text-4xl font-bold mb-6">Welcome to the Dashboard</h1>
       <div className="flex justify-center space-x-4">
         <Link to="/users" className="bg-blue-500 text-white px-4 py-2 rounded">
-          Manage Users
+          Blablablabla
         </Link>
         <Link to="/drinks" className="bg-green-500 text-white px-4 py-2 rounded">
           Manage Drinks
