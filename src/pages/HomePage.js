@@ -1,13 +1,27 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../api/userApi"; // Import the logout function
+import { toast } from "react-toastify";
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
   if (!token) {
     window.location.href = "/login"; // Redirect to login if not authenticated
     return null;
   }
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      toast.success("Logged out successfully!", { position: "top-right" });
+      navigate("/login"); // Redirect to login page
+    } catch (error) {
+      console.error("Error during logout:", error.response?.data || error.message);
+      toast.error("Failed to log out. Please try again.", { position: "top-right" });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
@@ -88,6 +102,16 @@ const HomePage = () => {
             </span>
           </li>
         </ul>
+      </div>
+
+      {/* Logout Section */}
+      <div className="mt-10">
+        <button
+          onClick={handleLogout}
+          className="px-6 py-3 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition"
+        >
+          Logout
+        </button>
       </div>
     </div>
   );

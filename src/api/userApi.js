@@ -26,6 +26,22 @@ export const login = async (data) => {
   }
 };
 
+
+/**
+ * Logout the current user
+ * @returns {Object} - Logout response or error
+ */
+export const logout = async () => {
+  try {
+    const response = await axiosInstance.post("/logout");
+    localStorage.removeItem("token"); // Clear the token from localStorage
+    return response.data;
+  } catch (error) {
+    console.error("Error in logout:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
 /**
  * Signup new user
  * @param {Object} data - New user details
