@@ -6,7 +6,6 @@ import { toast, ToastContainer } from "react-toastify";
 const UserDetails = () => {
   const { id } = useParams(); // Extract user ID from URL
   const navigate = useNavigate();
-
   const [user, setUser] = useState(null);
 
   const fetchUserDetails = async () => {
@@ -25,40 +24,54 @@ const UserDetails = () => {
   }, [id]);
 
   if (!user) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="text-lg text-gray-600 animate-pulse">Loading user details...</div>
+      </div>
+    );
   }
 
   return (
-    <div className="container mx-auto">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
       <ToastContainer />
-      <div className="max-w-lg p-6 mx-auto bg-white rounded-lg shadow-md">
-        <h2 className="mb-4 text-2xl font-bold text-blue-600">User Details</h2>
+      <div className="w-full max-w-lg bg-white rounded-lg shadow-lg p-8">
+        <h2 className="text-3xl font-extrabold text-blue-600 mb-6 text-center">
+          User Details
+        </h2>
         <ul className="space-y-4">
-          <li>
-            <strong>ID:</strong> {user._id}
+          <li className="flex justify-between">
+            <span className="font-semibold text-gray-700">ID:</span>
+            <span className="text-gray-600">{user._id}</span>
           </li>
-          <li>
-            <strong>Name:</strong> {user.name}
+          <li className="flex justify-between">
+            <span className="font-semibold text-gray-700">Name:</span>
+            <span className="text-gray-600">{user.name}</span>
           </li>
-          <li>
-            <strong>Email:</strong> {user.email}
+          <li className="flex justify-between">
+            <span className="font-semibold text-gray-700">Email:</span>
+            <span className="text-gray-600">{user.email}</span>
           </li>
-          <li>
-            <strong>Role:</strong> {user.role}
+          <li className="flex justify-between">
+            <span className="font-semibold text-gray-700">Role:</span>
+            <span className="capitalize text-gray-600">{user.role}</span>
           </li>
-          <li>
-            <strong>Created At:</strong> {user.createdAt}
+          <li className="flex justify-between">
+            <span className="font-semibold text-gray-700">Created At:</span>
+            <span className="text-gray-600">{user.createdAt}</span>
           </li>
-          <li>
-            <strong>Updated At:</strong> {user.updatedAt}
+          <li className="flex justify-between">
+            <span className="font-semibold text-gray-700">Updated At:</span>
+            <span className="text-gray-600">{user.updatedAt}</span>
           </li>
         </ul>
-        <button
-          className="px-4 py-2 mt-4 text-white bg-gray-500 rounded"
-          onClick={() => navigate("/users")}
-        >
-          Back to Users
-        </button>
+        <div className="mt-6 text-center">
+          <button
+            className="px-6 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-lg shadow-lg transition-transform transform hover:scale-105"
+            onClick={() => navigate("/users")}
+          >
+            Back to Users
+          </button>
+        </div>
       </div>
     </div>
   );
