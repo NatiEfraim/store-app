@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getUserById, updateUser } from "../../api/userApi";
+import { getUserById, updateUser, getRoleAuthUser } from "../../api/userApi";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -16,10 +16,28 @@ const EditUser = () => {
 
   const [loading, setLoading] = useState(false); // Prevent duplicate submissions
 
-  // Fetch user data by ID
   useEffect(() => {
+    checkUserRole();
     fetchUserData();
   }, [id]);
+
+  const checkUserRole = async () => {
+    try {
+      const { data: role } = await getRoleAuthUser();
+      if (role !== "admin" && role !== "superadmin") {
+        toast.error("Unauthorized access. Redirecting to User Table.", {
+          position: "top-right",
+        });
+        navigate("/users");
+      }
+    } catch (error) {
+      console.error("Error checking user role:", error.response?.data || error.message);
+      toast.error("Failed to verify role. Redirecting to User Table.", {
+        position: "top-right",
+      });
+      navigate("/users");
+    }
+  };
 
   const fetchUserData = async () => {
     try {

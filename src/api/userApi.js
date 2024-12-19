@@ -26,6 +26,19 @@ export const login = async (data) => {
   }
 };
 
+/**
+ * Get the role of the authenticated user
+ * @returns {Object} - User role or error
+ */
+export const getRoleAuthUser = async () => {
+  try {
+    const response = await axiosInstance.get("/auth-user");
+    return response.data;
+  } catch (error) {
+    console.error("Error in getRoleAuthUser:", error.response?.data || error.message);
+    throw error;
+  }
+};
 
 /**
  * Logout the current user

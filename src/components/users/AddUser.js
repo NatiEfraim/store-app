@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { addUser } from "../../api/userApi";
+import React, { useState, useEffect } from "react";
+import { addUser, getRoleAuthUser } from "../../api/userApi";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
@@ -11,9 +11,30 @@ const AddUser = () => {
     password: "",
     role: "user",
   });
-
   const [loading, setLoading] = useState(false); // Prevent duplicate submissions
   const navigate = useNavigate(); // To redirect back to user list
+
+  useEffect(() => {
+    checkUserRole();
+  }, []);
+
+  const checkUserRole = async () => {
+    try {
+      const { data: role } = await getRoleAuthUser();
+      if (role !== "admin" && role !== "superadmin") {
+        toast.error("Unauthorized access. Redirecting to User Table.", {
+          position: "top-right",
+        });
+        navigate("/users");
+      }
+    } catch (error) {
+      console.error("Error checking user role:", error.response?.data || error.message);
+      toast.error("Failed to verify role. Redirecting to User Table.", {
+        position: "top-right",
+      });
+      navigate("/users");
+    }
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
