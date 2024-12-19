@@ -43,7 +43,8 @@ const DrinkTable = () => {
   };
 
   return (
-    <div>
+    <div className="container mx-auto">
+      <h2 className="text-2xl font-bold mb-4">Drinks Management</h2>
       <table className="w-full border border-collapse border-gray-200 table-auto">
         <thead>
           <tr>
@@ -83,12 +84,20 @@ const DrinkTable = () => {
           ))}
         </tbody>
       </table>
-      <button
-        className="px-4 py-2 mt-4 text-white bg-green-500 rounded"
-        onClick={() => navigate("/drinks/add")}
-      >
-        Add New Drink
-      </button>
+      <div className="flex justify-between mt-4">
+        <button
+          className="px-4 py-2 text-white bg-gray-500 rounded"
+          onClick={() => navigate("/")}
+        >
+          Back to Dashboard
+        </button>
+        <button
+          className="px-4 py-2 text-white bg-green-500 rounded"
+          onClick={() => navigate("/drinks/add")}
+        >
+          Add New Drink
+        </button>
+      </div>
     </div>
   );
 };

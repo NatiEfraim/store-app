@@ -61,9 +61,18 @@ const AddDrink = () => {
             className="w-full p-2 border rounded"
           />
         </div>
-        <button type="submit" className="px-4 py-2 text-white bg-blue-500 rounded">
-          Add Drink
-        </button>
+        <div className="flex justify-between mt-4">
+          <button
+            type="button"
+            className="px-4 py-2 text-white bg-gray-500 rounded"
+            onClick={() => navigate("/drinks")}
+          >
+            Back to Drinks
+          </button>
+          <button type="submit" className="px-4 py-2 text-white bg-blue-500 rounded">
+            Add Drink
+          </button>
+        </div>
       </form>
       <ToastContainer />
     </div>
