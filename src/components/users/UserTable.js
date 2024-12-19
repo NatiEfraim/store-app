@@ -16,7 +16,7 @@ const UserTable = () => {
     } catch (error) {
       console.error("Error fetching user info:", error.response?.data || error.message);
       toast.error("Failed to fetch user info. Redirecting to Home Page.", { position: "top-right" });
-      window.location.href = "./"; // Redirect to home page on error
+      navigate("/"); // Redirect to home page on error
     }
   };
 
@@ -32,7 +32,7 @@ const UserTable = () => {
       setUsers(data);
     } catch (error) {
       console.error("Error fetching users:", error.response?.data || error.message);
-      alert("Failed to fetch users.");
+      toast.error("Failed to fetch users.", { position: "top-right" });
     }
   };
 
@@ -61,70 +61,62 @@ const UserTable = () => {
   };
 
   return (
-    <div className="container mx-auto">
-      <h2 className="mb-4 text-2xl font-bold">Users</h2>
-      <table className="w-full border border-collapse border-gray-200 table-auto">
-        <thead>
+    <div className="container mx-auto p-6 bg-white shadow-lg rounded-lg">
+      <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Users Management</h2>
+      <table className="w-full table-auto border-collapse border border-gray-300 shadow-sm rounded-lg">
+        <thead className="bg-gray-100 text-gray-700">
           <tr>
-            <th className="px-4 py-2 border border-gray-300">Name</th>
-            <th className="px-4 py-2 border border-gray-300">Email</th>
-            <th className="px-4 py-2 border border-gray-300">Role</th>
-            <th className="px-4 py-2 border border-gray-300">Actions</th>
+            <th className="px-6 py-3 border-b border-gray-200 text-left">Name</th>
+            <th className="px-6 py-3 border-b border-gray-200 text-left">Email</th>
+            <th className="px-6 py-3 border-b border-gray-200 text-left">Role</th>
+            <th className="px-6 py-3 border-b border-gray-200 text-left">Actions</th>
           </tr>
         </thead>
         <tbody>
           {users.map((user) => (
-            <tr key={user._id}>
-              <td className="px-4 py-2 border border-gray-300">{user.name}</td>
-              <td className="px-4 py-2 border border-gray-300">{user.email}</td>
-              <td className="px-4 py-2 border border-gray-300">{user.role}</td>
-              <td className="px-4 py-2 border border-gray-300">
-                {(authUser.role === "admin" || authUser.role === "superadmin") && (
-                  <>
-                    <button
-                      className="px-2 py-1 mr-2 text-white bg-blue-500 rounded"
-                      onClick={() => handleView(user._id)}
-                    >
-                      View
-                    </button>
-                    <button
-                      className="px-2 py-1 mr-2 text-white bg-green-500 rounded"
-                      onClick={() => handleEdit(user._id)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="px-2 py-1 text-white bg-red-500 rounded"
-                      onClick={() => handleDelete(user._id)}
-                    >
-                      Delete
-                    </button>
-                  </>
-                )}
+            <tr key={user._id} className="hover:bg-gray-50">
+              <td className="px-6 py-4 border-b border-gray-200 text-gray-700">{user.name}</td>
+              <td className="px-6 py-4 border-b border-gray-200 text-gray-700">{user.email}</td>
+              <td className="px-6 py-4 border-b border-gray-200 text-gray-700">{user.role}</td>
+              <td className="px-6 py-4 border-b border-gray-200 flex items-center space-x-2">
+                <button
+                  className="px-3 py-1 text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 rounded shadow"
+                  onClick={() => handleView(user._id)}
+                >
+                  View
+                </button>
+                <button
+                  className="px-3 py-1 text-sm font-medium text-white bg-green-500 hover:bg-green-600 rounded shadow"
+                  onClick={() => handleEdit(user._id)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="px-3 py-1 text-sm font-medium text-white bg-red-500 hover:bg-red-600 rounded shadow"
+                  onClick={() => handleDelete(user._id)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-
-      <div className="flex justify-between mt-4">
-        {/* Add New User button visible to Admin and Superadmin */}
+      <div className="flex justify-between mt-6">
+        <button
+          className="px-6 py-3 text-white bg-gray-700 hover:bg-gray-800 font-medium text-sm rounded shadow"
+          onClick={() => navigate("/")}
+        >
+          Back to Dashboard
+        </button>
         {(authUser.role === "admin" || authUser.role === "superadmin") && (
           <button
-            className="px-4 py-2 text-white bg-green-500 rounded"
+            className="px-6 py-3 text-white bg-green-500 hover:bg-green-600 font-medium text-sm rounded shadow"
             onClick={() => navigate("/users/add")}
           >
             Add New User
           </button>
         )}
-
-        {/* Back to Dashboard button */}
-        <button
-          className="px-4 py-2 text-white bg-gray-500 rounded"
-          onClick={() => navigate("/")}
-        >
-          Back to Dashboard
-        </button>
       </div>
     </div>
   );
