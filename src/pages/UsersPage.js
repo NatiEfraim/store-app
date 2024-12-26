@@ -3,7 +3,7 @@ import UserTable from "../components/users/UserTable";
 
 const UsersPage = () => {
   return (
-    <div>
+    <div className="container mx-auto">
       <UserTable />
     </div>
   );
