@@ -55,6 +55,27 @@ export const updateProduct = async (id, product) => {
   }
 };
 
+
+/**
+ * Fetch a single product by ID
+ * @param {String} id - Product ID
+ * @returns {Object} - Product data or error
+ */
+export const getProductById = async (id) => {
+  try {
+    const response = await axiosInstance.get(`/${id}`);
+    return response.data;
+  } catch (error) {
+    if (error.response?.status === 404) {
+      console.error("Product not found:", error.response.data);
+    } else {
+      console.error("Error fetching product:", error.response?.data || error.message);
+    }
+    throw error;
+  }
+};
+
+
 /**
  * Delete product by ID
  * @param {String} id - Product ID
