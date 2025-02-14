@@ -14,7 +14,7 @@ const axiosInstance = axios.create({
  */
 export const getCategories = async () => {
   try {
-    const response = await axiosInstance.get(`/`);
+    const response = await axiosInstance.get(`/index`);
     return response.data;
   } catch (error) {
     console.error("Error in getCategories:", error.response?.data || error.message);
@@ -49,6 +49,19 @@ export const updateCategory = async (id, category) => {
     return response.data;
   } catch (error) {
     console.error("Error in updateCategory:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+/**
+ * Fetch category by ID
+ */
+export const getCategoryById = async (id) => {
+  try {
+    const response = await axiosInstance.get(`/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error in getCategoryById:", error.response?.data || error.message);
     throw error;
   }
 };
