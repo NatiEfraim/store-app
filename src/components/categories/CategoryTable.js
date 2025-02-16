@@ -25,11 +25,11 @@ const CategoryTable = () => {
     if (window.confirm("Are you sure you want to delete this drink?")) {
       try {
         await deleteCategory(id);
-        toast.success("Drink deleted successfully!", { position: "top-right" });
-        fetchCategories(); // Refresh drink list
+        toast.success("Category deleted successfully!", { position: "top-right" });
+        fetchCategories(); // Refresh category list
       } catch (error) {
-        console.error("Error deleting drink:", error.response?.data || error.message);
-        toast.error("Failed to delete drink.", { position: "top-right" });
+        console.error("Error deleting category:", error.response?.data || error.message);
+        toast.error("Failed to delete category.", { position: "top-right" });
       }
     }
   };

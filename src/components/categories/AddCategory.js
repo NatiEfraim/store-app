@@ -15,7 +15,7 @@ const AddCategory = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await addCategory (formData);
+      await addCategory(formData);
       toast.success("Category added successfully!", { position: "top-right" });
       navigate("/categories");
     } catch (error) {
@@ -57,7 +57,7 @@ const AddCategory = () => {
             <input
               type="text"
               name="info"
-              value={formData.price}
+              value={formData.info}
               onChange={handleChange}
               required
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
@@ -68,7 +68,7 @@ const AddCategory = () => {
             <input
               type="text"
               name="img_url"
-              value={formData.price}
+              value={formData.img_url}
               onChange={handleChange}
               required
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
@@ -80,10 +80,11 @@ const AddCategory = () => {
               className="px-6 py-2 text-sm font-semibold text-white bg-gray-500 rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring focus:ring-gray-300"
               onClick={() => navigate("/categories")}
             >
-              Back to Category s
+              Back to Categories
             </button>
             <button
               type="submit"
+              onClick={() => handleSubmit}
               className="px-6 py-2 text-sm font-semibold text-white bg-blue-500 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
             >
               Add Category 

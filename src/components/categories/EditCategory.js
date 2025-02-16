@@ -95,7 +95,7 @@ const EditCategory = () => {
               className="px-6 py-2 text-sm font-semibold text-white bg-gray-500 rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring focus:ring-gray-300"
               onClick={() => navigate("/categories")}
             >
-              Back to category s
+              Back to categories
             </button>
             <button
               type="submit"
