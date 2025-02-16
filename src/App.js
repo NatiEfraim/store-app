@@ -17,6 +17,10 @@ import CategoriesPage from "./pages/CategoriesPage"
 import AddCategory from "./components/categories/AddCategory"
 import EditCategory from "./components/categories/EditCategory"
 
+import ProductsPage from "./pages/ProductsPage";
+import AddProduct from "./components/products/AddProduct";
+import EditProduct from "./components/products/EditProduct";
+import ProductDetails from "./components/products/ProductDetails";
 
 // Function to check if a user is authenticated
 const isAuthenticated = () => {
@@ -41,11 +45,18 @@ function App() {
         <Route path="/drinks/add" element={isAuthenticated() ? <AddDrink /> : <Navigate to="/login" />} />
         <Route path="/drinks/edit/:id" element={isAuthenticated() ? <EditDrink /> : <Navigate to="/login" />} />
         <Route path="/drinks/details/:id" element={isAuthenticated() ? <DrinkDetails /> : <Navigate to="/login" />} />
+
         <Route path="/categories" element={isAuthenticated() ? <CategoriesPage /> : <Navigate to="/login" />} />
         <Route path="/categories/add" element={isAuthenticated() ? <AddCategory /> : <Navigate to="/login" />} />
         <Route path="/categories/edit/:id" element={isAuthenticated() ? <EditCategory /> : <Navigate to="/login" />} />
-        <Route path="/categories/details/:id" element={isAuthenticated() ? <DrinkDetails /> : <Navigate to="/login" />} />
+
+        <Route path="/products" element={isAuthenticated() ? <ProductsPage /> : <Navigate to="/login" />} />
+        <Route path="/products/add" element={isAuthenticated() ? <AddProduct /> : <Navigate to="/login" />} />
+        <Route path="/products/edit/:id" element={isAuthenticated() ? <EditProduct /> : <Navigate to="/login" />} />
+        <Route path="/products/details/:id" element={isAuthenticated() ? <ProductDetails /> : <Navigate to="/login" />} />
+
         <Route path="*" element={<Navigate to="/login" />} />
+
 
       </Routes>
     </Router>
