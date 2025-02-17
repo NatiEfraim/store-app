@@ -20,8 +20,9 @@ const AddUser = () => {
 
   const checkUserRole = async () => {
     try {
-      const { data: role } = await getRoleAuthUser();
-      if (role !== "admin" && role !== "superadmin") {
+      const { data: userData } = await getRoleAuthUser();
+      
+      if (userData.role !== "admin" && userData.role !== "superadmin") {
         toast.error("Unauthorized access. Redirecting to User Table.", {
           position: "top-right",
         });

@@ -76,18 +76,7 @@ export const getProductById = async (id) => {
 };
 
 
-/**
- * Fetch drink by ID
- */
-export const getProductById = async (id) => {
-  try {
-    const response = await axiosInstance.get(`/${id}`);
-    return response.data;
-  } catch (error) {
-    console.error("Error in getProductById:", error.response?.data || error.message);
-    throw error;
-  }
-};
+
 
 /**
  * Delete product by ID

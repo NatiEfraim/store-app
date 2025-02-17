@@ -32,7 +32,7 @@ export const login = async (data) => {
  */
 export const getRoleAuthUser = async () => {
   try {
-    const response = await axiosInstance.get("/auth-user");
+    const response = await axiosInstance.get("/user");
     return response.data;
   } catch (error) {
     console.error("Error in getRoleAuthUser:", error.response?.data || error.message);

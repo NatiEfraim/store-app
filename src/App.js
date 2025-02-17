@@ -15,7 +15,6 @@ import DrinkPage from "./pages/DrinksPage";
 import AddDrink from "./components/drinks/AddDrink";
 import EditDrink from "./components/drinks/EditDrink";
 import DrinkDetails from "./components/drinks/DrinkDetails";
-import DrinkPage from "./pages/DrinksPage";
 
 import CategoriesPage from "./pages/CategoriesPage"
 import AddCategory from "./components/categories/AddCategory"
