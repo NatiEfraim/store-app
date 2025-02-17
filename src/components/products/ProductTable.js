@@ -25,8 +25,8 @@ const ProductTable = () => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
         await deleteProduct(id);
-        toast.success("Product deleted successfully!", { position: "top-right" });
-        fetchProducts(); // Refresh the product list
+        toast.success("product deleted successfully!", { position: "top-right" });
+        fetchProducts(); // Refresh product list
       } catch (error) {
         console.error("Error deleting product:", error.response?.data || error.message);
         toast.error("Failed to delete product.", { position: "top-right" });
@@ -43,34 +43,40 @@ const ProductTable = () => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
-      <table className="w-full border border-collapse border-gray-200 table-auto">
-        <thead className="bg-gray-200">
+    <div className="container mx-auto p-6 bg-white shadow-lg rounded-lg">
+      <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">products Management</h2>
+      <table className="w-full table-auto border-collapse border border-gray-300 shadow-sm rounded-lg">
+        <thead className="bg-gray-100 text-gray-700">
           <tr>
-            <th className="px-4 py-2 border border-gray-300">Image</th>
-            <th className="px-4 py-2 border border-gray-300">Name</th>
-            <th className="px-4 py-2 border border-gray-300">Category</th>
-            <th className="px-4 py-2 border border-gray-300">Price</th>
-            <th className="px-4 py-2 border border-gray-300">Actions</th>
+            <th className="px-6 py-3 border-b border-gray-200 text-left">Name</th>
+            <th className="px-6 py-3 border-b border-gray-200 text-left">Volume (ml)</th>
+            <th className="px-6 py-3 border-b border-gray-200 text-left">Price</th>
+            <th className="px-6 py-3 border-b border-gray-200 text-left">Actions</th>
           </tr>
         </thead>
         <tbody>
           {products.map((product) => (
-            <tr key={product._id}>
-              <td className="px-4 py-2 border border-gray-300">
-                <img src={product.img_url} alt={product.name} className="h-16 w-16 object-cover rounded" />
-              </td>
-              <td className="px-4 py-2 border border-gray-300">{product.name}</td>
-              <td className="px-4 py-2 border border-gray-300">{product.category_url}</td>
-              <td className="px-4 py-2 border border-gray-300">${product.price}</td>
-              <td className="px-4 py-2 border border-gray-300">
-                <button className="px-2 py-1 text-white bg-blue-500 rounded mr-2" onClick={() => handleView(product._id)}>
+            <tr key={product._id} className="hover:bg-gray-50">
+              <td className="px-6 py-4 border-b border-gray-200 text-gray-700">{product.name}</td>
+              <td className="px-6 py-4 border-b border-gray-200 text-gray-700">{product.ml}</td>
+              <td className="px-6 py-4 border-b border-gray-200 text-gray-700">${product.price.toFixed(2)}</td>
+              <td className="px-6 py-4 border-b border-gray-200 flex items-center space-x-2">
+                <button
+                  className="px-3 py-1 text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 rounded shadow"
+                  onClick={() => handleView(product._id)}
+                >
                   View
                 </button>
-                <button className="px-2 py-1 text-white bg-green-500 rounded mr-2" onClick={() => handleEdit(product._id)}>
+                <button
+                  className="px-3 py-1 text-sm font-medium text-white bg-green-500 hover:bg-green-600 rounded shadow"
+                  onClick={() => handleEdit(product._id)}
+                >
                   Edit
                 </button>
-                <button className="px-2 py-1 text-white bg-red-500 rounded" onClick={() => handleDelete(product._id)}>
+                <button
+                  className="px-3 py-1 text-sm font-medium text-white bg-red-500 hover:bg-red-600 rounded shadow"
+                  onClick={() => handleDelete(product._id)}
+                >
                   Delete
                 </button>
               </td>
@@ -78,12 +84,18 @@ const ProductTable = () => {
           ))}
         </tbody>
       </table>
-      <div className="flex justify-between mt-4">
-        <button className="px-4 py-2 text-white bg-gray-500 rounded" onClick={() => navigate("/")}>
+      <div className="flex justify-between mt-6">
+        <button
+          className="px-6 py-3 text-white bg-gray-700 hover:bg-gray-800 font-medium text-sm rounded shadow"
+          onClick={() => navigate("/")}
+        >
           Back to Dashboard
         </button>
-        <button className="px-4 py-2 text-white bg-green-500 rounded" onClick={() => navigate("/products/add")}>
-          Add New Product
+        <button
+          className="px-6 py-3 text-white bg-green-500 hover:bg-green-600 font-medium text-sm rounded shadow"
+          onClick={() => navigate("/products/add")}
+        >
+          Add New product
         </button>
       </div>
     </div>

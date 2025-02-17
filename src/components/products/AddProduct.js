@@ -1,19 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { addProduct } from "../../api/productApi";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddProduct = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    info: "",
-    price: "",
-    category_url: "",
-    img_url: "",
-  });
-
+  const [formData, setFormData] = useState({ name: "", info: "", price: "" ,  category_url:"", img_url:"", user_id:""});
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false); // Prevent duplicate submissions
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,9 +14,6 @@ const AddProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (loading) return;
-    setLoading(true);
-
     try {
       await addProduct(formData);
       toast.success("Product added successfully!", { position: "top-right" });
@@ -31,89 +21,100 @@ const AddProduct = () => {
     } catch (error) {
       console.error("Error adding product:", error.response?.data || error.message);
       toast.error("Failed to add product.", { position: "top-right" });
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
-        <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">Add New Product</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <ToastContainer />
+      <div className="w-full max-w-xl bg-white rounded-lg shadow-lg p-8">
+        <h1 className="text-3xl font-extrabold text-center text-gray-800 mb-6">Add New Product</h1>
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-gray-600 font-medium">Product Name</label>
+            <label className="block text-sm font-semibold text-gray-600 mb-1">Name</label>
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
             />
           </div>
           <div>
-            <label className="block text-gray-600 font-medium">Description</label>
-            <textarea
+            <label className="block text-sm font-semibold text-gray-600 mb-1">info </label>
+            <input
+              type="text"
               name="info"
               value={formData.info}
               onChange={handleChange}
               required
-              className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
-            ></textarea>
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+            />
           </div>
           <div>
-            <label className="block text-gray-600 font-medium">Price ($)</label>
+            <label className="block text-sm font-semibold text-gray-600 mb-1">Price</label>
             <input
               type="number"
+              step="0.01"
               name="price"
               value={formData.price}
               onChange={handleChange}
               required
-              className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
             />
           </div>
           <div>
-            <label className="block text-gray-600 font-medium">Category</label>
+            <label className="block text-sm font-semibold text-gray-600 mb-1">category_url</label>
             <input
               type="text"
               name="category_url"
               value={formData.category_url}
               onChange={handleChange}
               required
-              className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
             />
           </div>
           <div>
-            <label className="block text-gray-600 font-medium">Image URL</label>
+            <label className="block text-sm font-semibold text-gray-600 mb-1">img_url</label>
             <input
               type="text"
               name="img_url"
               value={formData.img_url}
               onChange={handleChange}
               required
-              className="w-full p-2 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
             />
           </div>
+          <div>
+            <label className="block text-sm font-semibold text-gray-600 mb-1">user_id</label>
+            <input
+              type="text"
+              name="user_id"
+              value={formData.user_id}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+            />
+          </div>
+        
           <div className="flex justify-between mt-6">
             <button
               type="button"
-              className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition"
+              className="px-6 py-2 text-sm font-semibold text-white bg-gray-500 rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring focus:ring-gray-300"
               onClick={() => navigate("/products")}
             >
               Back to Products
             </button>
             <button
               type="submit"
-              className={`px-4 py-2 text-white rounded ${loading ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"} transition`}
-              disabled={loading}
+              className="px-6 py-2 text-sm font-semibold text-white bg-blue-500 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
             >
-              {loading ? "Adding..." : "Add Product"}
+              Add Product
             </button>
           </div>
         </form>
       </div>
-      <ToastContainer />
     </div>
   );
 };
