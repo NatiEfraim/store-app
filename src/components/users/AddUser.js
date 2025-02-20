@@ -3,6 +3,7 @@ import { addUser, getRoleAuthUser } from "../../api/userApi";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import {UserRoles} from "../../utilities/userRoles";
 
 const AddUser = () => {
   const [formData, setFormData] = useState({
@@ -20,9 +21,9 @@ const AddUser = () => {
 
   const checkUserRole = async () => {
     try {
-      const { data: userData } = await getRoleAuthUser();
+      const { data: role } = await getRoleAuthUser();
       
-      if (userData.role !== "admin" && userData.role !== "superadmin") {
+      if (![UserRoles.ADMIN, UserRoles.SUPERADMIN].includes(role)) {
         toast.error("Unauthorized access. Redirecting to User Table.", {
           position: "top-right",
         });
