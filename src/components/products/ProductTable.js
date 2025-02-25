@@ -52,6 +52,9 @@ const ProductTable = () => {
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
+      <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
+        Product Management
+      </h2>
       <table className="w-full border border-collapse border-gray-200 table-auto">
         <thead className="bg-gray-200">
           <tr>
