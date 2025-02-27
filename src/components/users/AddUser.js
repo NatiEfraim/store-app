@@ -50,7 +50,11 @@ const AddUser = () => {
 
     try {
       await addUser(formData);
-      //toast.success("User added successfully!", { position: "top-right" });
+                  toast.success("User added successfully!", { 
+                          position: "top-right",
+                          autoClose: 3000, // Display for 3 seconds
+                        });
+      
       navigate("/users",{state:{adduser:true}}); // Redirect to the user list page
     } catch (error) {
       console.error("Error adding user:", error.response?.data || error.message);

@@ -31,8 +31,11 @@ const EditDrink = () => {
     e.preventDefault();
     try {
       await updateDrink(id, formData);
-      toast.success("Drink updated successfully!", { position: "top-right" });
-      navigate("/drinks");
+      toast.success("Drink updated successfully!", { 
+        position: "top-right",
+        autoClose: 50000000, // Display for 3 seconds
+      });
+      navigate("/drinks",{state:{adduser:true}});
     } catch (error) {
       console.error("Error updating drink:", error.response?.data || error.message);
       toast.error("Failed to update drink.", { position: "top-right" });

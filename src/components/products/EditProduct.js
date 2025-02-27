@@ -49,8 +49,13 @@ const EditProduct = () => {
 
     try {
       await updateProduct(id, formData);
-      toast.success("Product updated successfully!", { position: "top-right" });
-      navigate("/products");
+     
+          toast.success("Product updated successfully!", { 
+              position: "top-right",
+              autoClose: 3000, // Display for 3 seconds
+            });
+       
+      navigate("/products" ,{state:{adduser:true}});
     } catch (error) {
       console.error(
         "Error updating product:",

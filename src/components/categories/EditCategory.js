@@ -31,8 +31,11 @@ const EditCategory = () => {
     e.preventDefault();
     try {
       await updateCategory (id, formData);
-      toast.success("category  updated successfully!", { position: "top-right" });
-      navigate("/categories");
+       toast.success("category  updated successfully!", { 
+              position: "top-right",
+              autoClose: 3000, 
+       });
+      navigate("/categories",{state:{adduser:true}});
     } catch (error) {
       console.error("Error updating category :", error.response?.data || error.message);
       toast.error("Failed to update category .", { position: "top-right" });

@@ -27,6 +27,10 @@ const AddProduct = () => {
     try {
       await addProduct(formData);
       toast.success("Product added successfully!", { position: "top-right" });
+            toast.success("Product added successfully!", { 
+                position: "top-right",
+                autoClose: 3000, 
+            });
       navigate("/products",{state:{addingProduct:true}});
     } catch (error) {
       console.error(

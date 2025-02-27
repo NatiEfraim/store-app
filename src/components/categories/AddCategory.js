@@ -16,7 +16,10 @@ const AddCategory = () => {
     e.preventDefault();
     try {
       await addCategory(formData);
-      //toast.success("Category added successfully!", { position: "top-right" });
+      toast.success("Category added successfully!", { 
+        position: "top-right",
+        autoClose: 3000, 
+      });
       navigate("/categories",{state:{addingcategory:true}});
     } catch (error) {
       console.error("Error adding category :", error.response?.data || error.message);
