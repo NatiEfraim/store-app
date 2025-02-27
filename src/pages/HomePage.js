@@ -1,7 +1,9 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../api/userApi"; // Import the logout function
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -15,17 +17,21 @@ const HomePage = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      toast.success("Logged out successfully!", { position: "top-right" });
-      navigate("/login"); // Redirect to login page
+      console.log('logout');
+      
+      //toast.success("Logged out successfully!", { position: "top-right" });
+      navigate("/login", { state: { loggedOut: true } });
     } catch (error) {
       console.error("Error during logout:", error.response?.data || error.message);
-      toast.error("Failed to log out. Please try again.", { position: "top-right" });
+      navigate("/login", { state: { error: "Failed to log out. Please try again." } });
+
     }
   };
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
       {/* Welcome Section */}
+      <ToastContainer/>
       <div className="bg-white shadow-lg rounded-lg p-8 w-3/4 text-center">
         <h1 className="text-5xl font-extrabold text-gray-800 mb-6">
           Welcome to the Management Dashboard

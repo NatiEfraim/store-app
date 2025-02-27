@@ -15,12 +15,16 @@ const AddDrink = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+
       await addDrink(formData);
-      toast.success("Drink added successfully!", { position: "top-right" });
-      navigate("/drinks");
+      toast.success("Drink added successfully!", { 
+          position: "top-right",
+          autoClose: 3000, 
+      });
+      navigate("/drinks",{state:{addingdrink:true}});
     } catch (error) {
       console.error("Error adding drink:", error.response?.data || error.message);
-      toast.error("Failed to add drink.", { position: "top-right" });
+      navigate("/drinks",{state:{error:'faild to add a drink'}});
     }
   };
 

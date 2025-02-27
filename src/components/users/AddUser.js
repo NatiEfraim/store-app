@@ -50,13 +50,15 @@ const AddUser = () => {
 
     try {
       await addUser(formData);
-      toast.success("User added successfully!", { position: "top-right" });
-      navigate("/users"); // Redirect to the user list page
+                  toast.success("User added successfully!", { 
+                          position: "top-right",
+                          autoClose: 3000, // Display for 3 seconds
+                        });
+      
+      navigate("/users",{state:{adduser:true}}); // Redirect to the user list page
     } catch (error) {
       console.error("Error adding user:", error.response?.data || error.message);
-      toast.error(`Failed to add user: ${error.response?.data?.msg || error.message}`, {
-        position: "top-right",
-      });
+      navigate("/users",{state:{error:'faild to add new Product'}});
     } finally {
       setLoading(false); // Re-enable the form
     }

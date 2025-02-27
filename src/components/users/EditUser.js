@@ -69,7 +69,11 @@ const EditUser = () => {
 
     try {
       await updateUser(id, formData);
-      toast.success("User updated successfully!", { position: "top-right" });
+
+              toast.success("User updated successfully!", { 
+                    position: "top-right",
+                    autoClose: 3000, // Display for 3 seconds
+                  });
       navigate("/users"); // Redirect to the user list page
     } catch (error) {
       console.error("Error updating user:", error.response?.data || error.message);
