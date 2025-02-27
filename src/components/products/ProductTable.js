@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { getProducts, deleteProduct } from "../../api/productApi";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast,ToastContainer } from "react-toastify";
 
 const ProductTable = () => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
 
+  const location=useLocation()
+        useEffect(() => {
+          if (location.state?.addingProduct) {
+            toast.success("Product added successfully!", { position: "top-right" });
+          } else if (location.state?.error) {
+            toast.error(location.state.error, { position: "top-right" });
+          }
+        }, [location]);
+
+        
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -52,6 +62,7 @@ const ProductTable = () => {
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
+      <ToastContainer/>
       <table className="w-full border border-collapse border-gray-200 table-auto">
         <thead className="bg-gray-200">
           <tr>

@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { getDrinks, deleteDrink } from "../../api/drinkApi";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast,ToastContainer } from "react-toastify";
 
 const DrinkTable = () => {
   const [drinks, setDrinks] = useState([]);
   const navigate = useNavigate();
+
+  const location=useLocation()
+    useEffect(() => {
+      if (location.state?.addingdrink) {
+        toast.success("Drink added successfully!", { position: "top-right" });
+      } else if (location.state?.error) {
+        toast.error(location.state.error, { position: "top-right" });
+      }
+    }, [location]);
+
 
   useEffect(() => {
     fetchDrinks();
@@ -44,6 +54,7 @@ const DrinkTable = () => {
 
   return (
     <div className="container mx-auto p-6 bg-white shadow-lg rounded-lg">
+      <ToastContainer/>
       <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Drinks Management</h2>
       <table className="w-full table-auto border-collapse border border-gray-300 shadow-sm rounded-lg">
         <thead className="bg-gray-100 text-gray-700">

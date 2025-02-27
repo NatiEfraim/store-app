@@ -16,11 +16,13 @@ const AddCategory = () => {
     e.preventDefault();
     try {
       await addCategory(formData);
-      toast.success("Category added successfully!", { position: "top-right" });
-      navigate("/categories");
+      //toast.success("Category added successfully!", { position: "top-right" });
+      navigate("/categories",{state:{addingcategory:true}});
     } catch (error) {
       console.error("Error adding category :", error.response?.data || error.message);
-      toast.error("Failed to add category .", { position: "top-right" });
+      //toast.error("Failed to add category .", { position: "top-right" });
+      navigate("/categories",{state:{error:'faild to add new category'}});
+
     }
   };
 

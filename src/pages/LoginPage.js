@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { login } from "../api/userApi";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -8,6 +9,15 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  useEffect(() => {
+    if (location.state?.loggedOut) {
+      toast.success("Logged out successfully!", { position: "top-right" });
+    } else if (location.state?.error) {
+      toast.error(location.state.error, { position: "top-right" });
+    }
+  }, [location]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

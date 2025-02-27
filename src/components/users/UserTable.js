@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { getUsers, deleteUser, getUserInfo } from "../../api/userApi";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast,ToastContainer } from "react-toastify";
 
 const UserTable = () => {
   const [users, setUsers] = useState([]); // Store users
   const [authUser, setAuthUser] = useState({}); // Store authenticated user info
   const navigate = useNavigate(); // Navigation for routing
+
+  const location=useLocation()
+        useEffect(() => {
+          if (location.state?.adduser) {
+            toast.success("User added successfully!", { position: "top-right" });
+          } else if (location.state?.error) {
+            toast.error(location.state.error, { position: "top-right" });
+          }
+        }, [location]);
+
 
 // Fetch authenticated user info
 const getAuthUser = async () => {
@@ -62,6 +72,7 @@ const handleView = (id) => {
 
 return (
 <div className="container mx-auto p-6 bg-white shadow-lg rounded-lg">
+  <ToastContainer/>
     <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Users Management</h2>
     <table className="w-full table-auto border-collapse border border-gray-300 shadow-sm rounded-lg">
         <thead className="bg-gray-100 text-gray-700">

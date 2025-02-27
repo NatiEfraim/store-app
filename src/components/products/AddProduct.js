@@ -27,13 +27,14 @@ const AddProduct = () => {
     try {
       await addProduct(formData);
       toast.success("Product added successfully!", { position: "top-right" });
-      navigate("/products");
+      navigate("/products",{state:{addingProduct:true}});
     } catch (error) {
       console.error(
         "Error adding product:",
         error.response?.data || error.message
       );
-      toast.error("Failed to add product.", { position: "top-right" });
+      navigate("/products",{state:{error:'faild to add new Product'}});
+
     } finally {
       setLoading(false);
     }
